@@ -53,9 +53,9 @@ router.post('/register', function (req, res) {
 	req.checkBody('email', 'Email field cant be empty!').notEmpty();
 	req.checkBody('username', 'Username field cant be empty!').notEmpty();
 	req.checkBody('email', 'Enter a valid email address!').isEmail();
-	req.checkBody('password', 'password field cant be empty!').notEmpty();
-	req.checkBody('password2', 'passwords do not match!').equals(password);
-	req.checkBody('gender', 'gender field cant be empty!').notEmpty();
+	req.checkBody('password', 'Password field cant be empty!').notEmpty();
+	req.checkBody('password2', 'Passwords do not match!').equals(password);
+	req.checkBody('gender', 'Gender field cant be empty!').notEmpty();
 
 	//errors
 	const errors = req.validationErrors();
@@ -135,7 +135,7 @@ passport.use(new LocalStrategy(
             return done(err);
          }
          if(!user){
-            return done(null,false, { message:"invalid username"})
+            return done(null,false, { message:"Invalid username"})
          }
          else{
             bcrypt.compare(password, user.password, (err, isMatch) => {
@@ -146,7 +146,7 @@ passport.use(new LocalStrategy(
                   return done(null, user)
                }
                else{
-                  return done(null, false, {message:"invalid password"})
+                  return done(null, false, {message:"Invalid password"})
                }
             })
          }
@@ -204,7 +204,7 @@ router.post('/:username/edit', ensureAuthenticated, upload.single('profilepics')
 
 	User.updateOne({username:username}, {$set : updates})
 	.then(success => {
-		req.flash('success',	'profile	successfully updated')
+		req.flash('success', 'Profile Successfully Updated')
 		res.location(`/users/${req.params.username}`);
 		res.redirect(`/users/${req.params.username}`);
 	})

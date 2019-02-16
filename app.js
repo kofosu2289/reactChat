@@ -105,7 +105,7 @@ app.get('*', (req, res, next) => {
 	next();
 })
 
-app.get('/chats', ensureAuthenticated, (req, res)	=>{
+app.get('/chats', ensureAuthenticated, (req, res) => {
 	console.log(socketusers)
 	const loggedInUser = req.user;
 	const onlineFriends = [];

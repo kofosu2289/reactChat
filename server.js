@@ -19,7 +19,7 @@ const imageSchema = new mongoose.Schema({
 const Image = mongoose.model('Image', imageSchema)
 
 app.use(bodyparser.json())
-app.use(bodyparser.urlencoded({extended:false}))
+app.use(bodyparser.urlencoded({ extended:false }))
 app.use(express.static(path.join(__dirname,'public')));
 app.use('/uploads',express.static(path.join(__dirname,'uploads')));
 app.set('view engine', 'ejs')
@@ -41,10 +41,10 @@ const storage = multer.diskStorage({
 
 const fileFilter = (req, file, callback) => {
    //reject if not JPG or PNG format
-   if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png'){
+   if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
       callback(null, true);
    }
-   else{
+   else {
       callback(null, false);
    }
 }
@@ -72,10 +72,10 @@ app.post('/uploadfile', upload.single('image'),  (req,res) => {
    })
    console.log(req.file)
    newData.save(function(err, result){
-      if(err){
+      if (err) {
          console.log(err)
       }
-      else{
+      else {
          console.log("create image!")
          console.log(result)
       }
@@ -90,21 +90,22 @@ app.get('/all', (req, res) => {
          res.send('error occured!');
          console.log(err)
       }
-      else  {
-         res.render('all',{
+      else {
+         res.render('all', {
             images:images
-         })
+            }
+        )
       }
-   })
+    })
 })
 
 app.get('/delete/:id', (req, res) => {
    Image.findOneAndDelete(req.params.id, (err, resp) => {
-      if (err){
+      if (err) {
          res.send("something went wrong");
          console.log(err);
       }
-      else{
+      else {
          console.log(resp)
          res.redirect('/all');
       }
